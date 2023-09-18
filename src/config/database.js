@@ -37,7 +37,12 @@ module.exports = {
     password: '12341234',
     database: 'codeburguer',
     dialect: 'postgres', // Use o dialeto PostgreSQL
-    ssl: true,
+    dialectOptions: {
+        ssl: {
+          require: true, // This will help you. But you will see nwe error
+          rejectUnauthorized: false // This line will fix new error
+        }
+      },
     define: {
       timestamps: true,
       underscored: true,
