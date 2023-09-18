@@ -32,7 +32,6 @@
 
 
 module.exports = {
-    dialect: 'codeburguer',
     host: 'codeburguer.ckymwbkfxdvf.sa-east-1.rds.amazonaws.com',
     username: 'codeburguer',
     password: '12341234',
