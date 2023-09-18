@@ -37,6 +37,9 @@ module.exports = {
     username: 'codeburguer',
     password: '12341234',
     database: 'codeburguer',
+    ssl: {
+        rejectUnauthorized: false, // Desativa a verificação do certificado
+      },
     define: {
       timestamps: true,
       underscored: true,
