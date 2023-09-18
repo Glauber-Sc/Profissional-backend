@@ -32,14 +32,12 @@
 
 
 module.exports = {
-    dialect: 'postgres', // Use o dialeto PostgreSQL
     host: 'codeburguer.ckymwbkfxdvf.sa-east-1.rds.amazonaws.com',
     username: 'codeburguer',
     password: '12341234',
     database: 'codeburguer',
-    ssl: {
-        rejectUnauthorized: false, // Desativa a verificação do certificado
-      },
+    dialect: 'postgres', // Use o dialeto PostgreSQL
+    ssl: true,
     define: {
       timestamps: true,
       underscored: true,
