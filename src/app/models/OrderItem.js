@@ -33,7 +33,7 @@ class OrderItem extends Model {
   // Adicione um getter virtual para a URL da imagem do produto
   get url() {
     // Certifique-se de substituir "this.path" pelo nome correto do atributo de imagem do seu modelo Product
-    return `https://192.168.100.7:3000/product-file/${this.product.path}`;
+    return `https://177.71.203.249:3000/product-file/${this.product.path}`;
   }
 }
 
