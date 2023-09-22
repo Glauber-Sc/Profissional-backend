@@ -12,7 +12,7 @@ class Product extends Model {
                 url: {
                     type: Sequelize.VIRTUAL,
                     get() {
-                        return `https://177.71.203.249:3000/product-file/${this.path}`
+                        return `http://177.71.203.249:3000/product-file/${this.path}`
                     }
                 }
             },
