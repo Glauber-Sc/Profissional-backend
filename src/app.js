@@ -7,7 +7,14 @@ import './database'
 class App {
     constructor() {
         this.app = express()
-        this.app.use(cors())
+
+        const corsOptions = {
+            origin: 'https://pedepede.fun', // Substitua pelo domínio do seu frontend
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true, // Habilita o uso de credenciais (cookies, autenticação, etc.)
+        };
+        
+        this.app.use(cors(corsOptions))
 
         this.middlewares()
         this.routes()
