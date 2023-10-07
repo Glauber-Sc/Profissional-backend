@@ -18,7 +18,7 @@ const routes = new Router();
 
 routes.post("/users", UserController.store); // Cria novo usuario
 
-routes.post("/sessions", SessionController.store); // Cria nova seção de produtos
+routes.get("/sessions", SessionController.store); // Cria nova seção de produtos
 
 routes.use(authMiddleware); // Todas as rotas que estiverem abaixo vão receber o middleware
 
