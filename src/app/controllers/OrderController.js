@@ -42,6 +42,7 @@ class OrderController {
             const order = await Order.create({
                 user_id: userId,
                 status: "Pedido realizado",
+                status_payment: false, // Adicione o campo status_payment com valor padrão false
                 address_id: address_id, // Associando o endereço ao pedido
                 createdAt: subHours(new Date(), 3),
             });
@@ -76,6 +77,9 @@ class OrderController {
     async index(request, response) {
         try {
             const orders = await Order.findAll({
+                where: {
+                    status_payment: true,
+                },
                 include: [
                     {
                         model: OrderItem,
@@ -198,6 +202,87 @@ class OrderController {
                 .json({ error: "Falha ao atualizar a ordem" });
         }
     }
+
+
+
+
+
+async customerOrders(request, response) {
+    const { userId } = request;
+
+    try {
+        const orders = await Order.findAll({
+            where: { user_id: userId }, // Filtra os pedidos pelo ID do usuário logado
+            include: [
+                {
+                    model: OrderItem,
+                    as: "products",
+                    include: [
+                        {
+                            model: Product,
+                            as: "product",
+                            attributes: ["id", "name", "price", "path"],
+                            include: [
+                                {
+                                    model: Category,
+                                    as: "category",
+                                    attributes: ["id", "name"],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["id", "name", "email"],
+                },
+                {
+                    model: Address, // Adicione a tabela de endereços
+                    as: "address", // Alias para o endereço do usuário
+                    attributes: ["id", "street"], // Coloque aqui os atributos desejados do endereço
+                },
+            ],
+        });
+
+        const formattedOrders = orders.map((order) => {
+            const formattedProducts = order.products.map((product) => {
+                return {
+                    quantity: product.quantity,
+                    name: product.product.name,
+                    price: product.product.price,
+                    category: product.product.category.name,
+                    url: product.product.url,
+                };
+            });
+
+            return {
+                _id: order.id,
+                user: {
+                    id: order.user.id,
+                    name: order.user.name,
+                    email: order.user.email,
+                },
+                address: {
+                    id: order.address.id,
+                    street: order.address.street,
+                },
+                products: formattedProducts,
+                status: order.status,
+                createdAt: order.createdAt,
+            };
+        });
+
+        return response.json(formattedOrders);
+    } catch (error) {
+        console.error(error);
+        return response
+            .status(500)
+            .json({ error: "Falha ao buscar pedidos" });
+    }
+}
+
+
 
 }
 

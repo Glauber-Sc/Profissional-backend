@@ -24,6 +24,11 @@ class Order extends Model {
           type: Sequelize.INTEGER, // Tipo de dado depende do tipo de chave primária da tabela addresses
           allowNull: true, // Pode ser nulo temporariamente até o pedido ser associado ao endereço
         },
+        status_payment: {
+          type: Sequelize.BOOLEAN, // Campo para rastrear o status de pagamento
+          allowNull: false,
+          defaultValue: false, // Padrão é false (não pago)
+        },
       },
       {
         sequelize,
@@ -60,6 +65,10 @@ class Order extends Model {
     // Certifique-se de substituir "this.path" pelo nome correto do atributo de imagem do seu modelo Product
     return `/product-file/${this.products[0]?.product.path}`;
   }
+  // get url() {
+  //   // Certifique-se de substituir "this.path" pelo nome correto do atributo de imagem do seu modelo Product
+  //   return `http://192.168.100.7:3000/product-file/${this.products[0]?.product.path}`;
+  // }
 }
 
 export default Order;

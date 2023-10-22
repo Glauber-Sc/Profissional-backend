@@ -14,6 +14,9 @@ class Product extends Model {
                     get() {
                         return `/product-file/${this.path}`
                     }
+                    // get() {
+                    //     return `http://192.168.100.7:3000/product-file/${this.path}`
+                    // }
                 }
             },
             {
@@ -32,3 +35,4 @@ class Product extends Model {
 }
 
 export default Product
+

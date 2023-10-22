@@ -39,7 +39,9 @@ routes.post("/addresses", AddressController.store);
 routes.post('/orders', OrderController.store) // Cria novo pedido
 routes.put('/orders/:id', OrderController.update) // Atualiza o status do pedido
 routes.get('/orders', OrderController.index) // Mostra todos os pedidos
-
+// Rota para listar os pedidos do cliente
+routes.get("/orders/client", OrderController.customerOrders);
+//routes.get('/orders/client', OrderController.index)
 
 
 
