@@ -28,7 +28,7 @@ class OrderController {
         }
 
         const { userId } = request;
-        const { products, address_id } = request.body; // Adicione o campo address_id
+        const { products, address_id, txid  } = request.body; // Adicione o campo address_id
 
         try {
             const user = await User.findByPk(userId);
@@ -45,6 +45,7 @@ class OrderController {
                 status_payment: false, // Adicione o campo status_payment com valor padrão false
                 address_id: address_id, // Associando o endereço ao pedido
                 createdAt: subHours(new Date(), 3),
+                txid, // Associe o txid à ordem
             });
 
             await order.setAddress(address_id); // Associa o endereço ao pedido

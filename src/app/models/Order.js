@@ -29,6 +29,9 @@ class Order extends Model {
           allowNull: false,
           defaultValue: false, // Padrão é false (não pago)
         },
+        txid: {
+          type: Sequelize.STRING, // Adicione o campo txid
+        },
       },
       {
         sequelize,
