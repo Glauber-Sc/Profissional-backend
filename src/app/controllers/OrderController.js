@@ -282,8 +282,6 @@ async customerOrders(request, response) {
     }
 }
 
-
-
 }
 
 export default new OrderController();
