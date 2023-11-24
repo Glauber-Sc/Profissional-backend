@@ -5,7 +5,7 @@ import User from "../models/User";
 class AddressController {
   async store(request, response) {
     try {
-      const { street } = request.body;
+      const { street, phone  } = request.body;
       const userId = request.userId; // Certifique-se de que o middleware authMiddleware defina corretamente o usuário aqui
      
       const user = await User.findByPk(userId);
@@ -15,6 +15,7 @@ class AddressController {
 
       const newAddress = await Address.create({
         street: street,
+        phone: phone,
         user_id: userId,
       });
 

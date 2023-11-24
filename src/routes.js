@@ -20,6 +20,8 @@ routes.post("/users", UserController.store); // Cria novo usuario
 
 routes.post("/sessions", SessionController.store); // Cria nova seção de produtos
 
+
+
 routes.use(authMiddleware); // Todas as rotas que estiverem abaixo vão receber o middleware
 
 //cria-se primeiro categorias antes de criar produtos

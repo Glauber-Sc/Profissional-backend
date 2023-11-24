@@ -13,6 +13,7 @@ class Address extends Model {
           autoIncrement: true,
         },
         street: Sequelize.STRING,
+        phone: Sequelize.NUMBER, //Adicione o campo "phone"
       },
       {
         sequelize,

@@ -19,6 +19,7 @@ class OrderController {
                 )
                 .required(),
             address_id: Yup.number().required(), // Novo campo para o endereço do usuário
+            phone: Yup.string().required(), // Adicione o campo "phone" ao esquema
         });
 
         try {
@@ -28,7 +29,7 @@ class OrderController {
         }
 
         const { userId } = request;
-        const { products, address_id, txid  } = request.body; // Adicione o campo address_id
+        const { products, address_id, txid, phone   } = request.body; // Adicione o campo address_id
 
         try {
             const user = await User.findByPk(userId);
@@ -46,6 +47,7 @@ class OrderController {
                 address_id: address_id, // Associando o endereço ao pedido
                 createdAt: subHours(new Date(), 3),
                 txid, // Associe o txid à ordem
+                phone,
             });
 
             await order.setAddress(address_id); // Associa o endereço ao pedido
@@ -108,7 +110,7 @@ class OrderController {
                     {
                         model: Address, // Adicione a tabela de endereços
                         as: "address", // Alias para o endereço do usuário
-                        attributes: ["id", "street"], // Coloque aqui os atributos desejados do endereço
+                        attributes: ["id", "street", "phone"], // Coloque aqui os atributos desejados do endereço
                     },
                 ],
             });
@@ -134,6 +136,7 @@ class OrderController {
                     address: {
                         id: order.address.id,
                         street: order.address.street,
+                        phone: order.address.phone, // Inclua o campo "phone" na resposta
                     },
                     products: formattedProducts,
                     status: order.status,
@@ -213,7 +216,7 @@ async customerOrders(request, response) {
 
     try {
         const orders = await Order.findAll({
-            where: { user_id: userId }, // Filtra os pedidos pelo ID do usuário logado
+            where: { user_id: userId,  status_payment: true,}, // Filtra os pedidos pelo ID do usuário logado
             include: [
                 {
                     model: OrderItem,

@@ -12,12 +12,12 @@ class Category extends Model {
                     // Este campo não existe no banco de dados
                     // Gerando uma url quando o usuario solicita informações do produto
                     type: Sequelize.VIRTUAL,
-                    // get() {
-                    //     return `http://192.168.100.7:3000/category-file/${this.path}`
-                    // }
                     get() {
-                        return `/category-file/${this.path}`;
+                        return `http://192.168.100.7:3000/category-file/${this.path}`
                     }
+                    // get() {
+                    //     return `/category-file/${this.path}`;
+                    // }
                     
                 }
             },

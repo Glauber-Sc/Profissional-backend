@@ -11,12 +11,12 @@ class Product extends Model {
                 description: Sequelize.STRING, // Adicione o campo description aqui
                 url: {
                     type: Sequelize.VIRTUAL,
-                    get() {
-                        return `/product-file/${this.path}`
-                    }
                     // get() {
-                    //     return `http://192.168.100.7:3000/product-file/${this.path}`
+                    //     return `/product-file/${this.path}`
                     // }
+                    get() {
+                        return `http://192.168.100.7:3000/product-file/${this.path}`
+                    }
                 }
             },
             {
